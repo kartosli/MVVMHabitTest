@@ -16,7 +16,6 @@ import me.goldze.mvvmhabit.base.BaseActivity;
 public class DemoActivity extends BaseActivity<ActivityDemoBinding, DemoViewModel> {
     @Override
     public int initContentView(Bundle savedInstanceState) {
-
         return R.layout.activity_demo;
     }
 

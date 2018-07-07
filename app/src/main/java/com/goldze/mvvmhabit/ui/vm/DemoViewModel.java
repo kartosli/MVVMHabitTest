@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.goldze.mvvmhabit.entity.FormEntity;
 import com.goldze.mvvmhabit.ui.fragment.FormFragment;
 import com.goldze.mvvmhabit.ui.fragment.NetWorkFragment;
+import com.goldze.mvvmhabit.ui.fragment.TestListFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import io.reactivex.functions.Consumer;
@@ -40,6 +41,13 @@ public class DemoViewModel extends BaseViewModel {
         }
     });
     //网络访问点击事件
+    public BindingCommand testListTestClick = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            startContainerActivity(TestListFragment.class.getCanonicalName());
+        }
+    });
+    //网络访问点击事件
     public BindingCommand netWorkClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
@@ -59,10 +67,11 @@ public class DemoViewModel extends BaseViewModel {
         public void call() {
             //模拟一个修改的实体数据
             FormEntity entity = new FormEntity();
-            entity.setName("goldze");
+//            entity.setName("goldze");
             entity.setSex("1");
             entity.setBir("xxxx年xx月xx日");
             entity.setMarry(true);
+            entity.setPhotoUrl("bimg/338/27244.jpg");
             //传入实体数据
             Bundle mBundle = new Bundle();
             mBundle.putParcelable("entity", entity);
@@ -89,6 +98,7 @@ public class DemoViewModel extends BaseViewModel {
 
         }
     });
+
 
     //异常全局异常捕获
     public BindingCommand exceptionClick = new BindingCommand(new BindingAction() {

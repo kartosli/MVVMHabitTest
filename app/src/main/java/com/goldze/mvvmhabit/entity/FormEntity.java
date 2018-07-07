@@ -1,22 +1,43 @@
 package com.goldze.mvvmhabit.entity;
 
+import android.databinding.ObservableField;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
+
+import io.reactivex.internal.operators.observable.ObservableError;
 
 /**
  * Created by goldze on 2017/7/17.
  */
 
 public class FormEntity implements Parcelable {
-    private String name;
+    private String name ="哈哈";
     private String sex;
     private String Bir;
     private String hobby;
     private Boolean isMarry;
+    private ObservableField<String> birth = new ObservableField<String>();
+    private String photoUrl;
     public String getName() {
         return name;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public ObservableField<String> getBirth() {
+        return birth;
+    }
+
+    public void setBirth(ObservableField<String> birth) {
+        this.birth = birth;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public void setName(String name) {
@@ -70,6 +91,7 @@ public class FormEntity implements Parcelable {
         dest.writeString(this.Bir);
         dest.writeString(this.hobby);
         dest.writeValue(this.isMarry);
+        dest.writeString(this.photoUrl);
     }
 
     protected FormEntity(Parcel in) {
@@ -78,6 +100,7 @@ public class FormEntity implements Parcelable {
         this.Bir = in.readString();
         this.hobby = in.readString();
         this.isMarry = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.photoUrl = in.readString();
     }
 
     public static final Creator<FormEntity> CREATOR = new Creator<FormEntity>() {

@@ -48,9 +48,9 @@
             android:layout_height="wrap_content"
             android:text="文件下载" />
         <Button
-            binding:onClickCommand="@{viewModel.}"
+            binding:onClickCommand="@{viewModel.testListTestClick}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="列表测试" />
+            android:text="列表测试haozi" />
     </LinearLayout>
 </layout>

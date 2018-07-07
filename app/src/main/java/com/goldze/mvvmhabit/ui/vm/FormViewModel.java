@@ -1,10 +1,15 @@
 package com.goldze.mvvmhabit.ui.vm;
 
 import android.app.DatePickerDialog;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 import android.support.v4.app.Fragment;
 import android.widget.DatePicker;
 
+import com.goldze.mvvmhabit.BR;
+import com.goldze.mvvmhabit.R;
 import com.goldze.mvvmhabit.entity.FormEntity;
 import com.goldze.mvvmhabit.entity.SpinnerItemData;
 import com.google.gson.Gson;
@@ -14,11 +19,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseViewModel;
+import me.goldze.mvvmhabit.base.ServerUrl;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.binding.command.BindingConsumer;
 import me.goldze.mvvmhabit.binding.viewadapter.spinner.IKeyAndValue;
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
+import me.tatarka.bindingcollectionadapter2.BindingViewPagerAdapter;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * Created by goldze on 2017/7/17.
@@ -30,14 +38,39 @@ public class FormViewModel extends BaseViewModel {
     public UIChangeObservable uc = new UIChangeObservable();
     public List<IKeyAndValue> sexItemDatas;
 
+    public ObservableField<String> userUame = new ObservableField<>("");
+
+    public final ItemBinding<ItemViewModel> singleItem = ItemBinding.of(BR.item, R.layout.item);
+    public final ObservableList<ItemViewModel> items = new ObservableArrayList<>();
+    public final BindingViewPagerAdapter.PageTitles<ItemViewModel> pageTitles = new BindingViewPagerAdapter.PageTitles<ItemViewModel>() {
+        @Override
+        public CharSequence getPageTitle(int position, ItemViewModel item) {
+            return "Itemhaozi " + (item.getIndex() + 1);
+        }
+    };
+
+    public ObservableList itemList = new ObservableArrayList();
     public class UIChangeObservable {
         //刷新界面的观察者
         public ObservableBoolean refreshUIObservable = new ObservableBoolean(false);
     }
-
+    /**
+     * Custom adapter that logs calls.
+     */
+    public FormViewModel(){
+        super();// 关键是这句话
+    }
     public FormViewModel(Fragment fragment, FormEntity entity) {
         super(fragment);
+        for (int i = 0; i < 3; i++) {
+            items.add(new ItemViewModel(i, true));
+        }
         this.entity = entity;
+
+        //sexItemDatas 一般可以从本地Sqlite数据库中取出数据字典对象集合，让该对象实现IKeyAndValue接口
+        sexItemDatas = new ArrayList<>();
+        sexItemDatas.add(new SpinnerItemData("男", "1"));
+        sexItemDatas.add(new SpinnerItemData("女", "2"));
     }
 
     @Override
@@ -59,6 +92,11 @@ public class FormViewModel extends BaseViewModel {
     public BindingCommand onBirClickCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
+
+            for (int i = 0; i < 3; i++) {
+                items.add(new ItemViewModel((i+1)*4, true));
+            }
+
             final Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
@@ -67,9 +105,9 @@ public class FormViewModel extends BaseViewModel {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     //设置数据到实体中
-                    entity.setBir(year + "年" + (month + 1) + "月" + dayOfMonth + "日");
+                    entity.getBirth().set(year + "年" + (month + 1) + "月" + dayOfMonth + "日");
                     //回调到Fragment中刷新界面
-                    uc.refreshUIObservable.set(!uc.refreshUIObservable.get());
+//                    uc.refreshUIObservable.set(!uc.refreshUIObservable.get());
                 }
             }, year, month, day);
             datePickerDialog.setMessage("生日选择");
@@ -87,8 +125,10 @@ public class FormViewModel extends BaseViewModel {
     public BindingCommand onCmtClickCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
+//               entity.setName("1111");
+            userUame.set("33333");
             String submitJson = new Gson().toJson(entity);
-            MaterialDialogUtils.showBasicDialog(context, "提交的json实体数据：\r\n" + submitJson).show();
+//            MaterialDialogUtils.showBasicDialog(context, "提交的json实体数据：\r\n" + submitJson).show();
         }
     });
 

@@ -90,6 +90,7 @@ public class NetWorkViewModel extends BaseViewModel {
     //给RecyclerView添加ItemView
     public ItemBinding<NetWorkItemViewModel> itemBinding = ItemBinding.of(BR.viewModel, R.layout.item_network);
 
+//    public ItemBinding<TestListItemViewModel> itemBinding =  ItemBinding.of(me.goldze.mvvmhabit.BR.viewModel, R.layout.item_testlist);
     //下拉刷新
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {
         @Override

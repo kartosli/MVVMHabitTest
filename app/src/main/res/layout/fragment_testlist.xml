@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.goldze.mvvmhabit.ui.vm.NetWorkViewModel" />
+        <import type="com.goldze.mvvmhabit.ui.vm.TestListViewModel" />
 
         <variable
             name="viewModel"
-            type="NetWorkViewModel" />
+            type="TestListViewModel" />
 
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
 
@@ -21,18 +21,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+
+       <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+           android:background="@color/blue"
             android:id="@+id/twinklingRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            binding:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}"
+            android:layout_height="90dp"
             binding:onRefreshCommand="@{viewModel.onRefreshCommand}"
             binding:tr_head_height="80dp"
-            binding:tr_wave_height="80dp">
+            binding:tr_wave_height="80dp"
+            binding:tr_enable_loadmore="false"
+           >
 
             <android.support.v7.widget.RecyclerView
+                android:background="@color/blue"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 binding:itemBinding="@{viewModel.itemBinding}"
                 binding:items="@{viewModel.observableList}"
                 binding:layoutManager="@{LayoutManagers.linear()}"
@@ -40,5 +44,14 @@
 
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_testadd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:orientation="vertical"
+            >
+
+        </LinearLayout>
     </LinearLayout>
 </layout>

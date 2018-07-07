@@ -16,6 +16,7 @@ ext {
             'appcompat-v7'     : 'com.android.support:appcompat-v7:${version["support-version"]}',
             'recyclerview-v7'  : 'com.android.support:recyclerview-v7:${version["support-version"]}',
             'support-v13'      : 'com.android.support:support-v13:${version["support-version"]}',
+            'design'           : 'com.android.support:design:${version["support-version"]',
             'support-fragment' : 'com.android.support:support-fragment:${version["support-version"]}',
             'animated-vector-drawable' : 'com.android.support:animated-vector-drawable:${version["support-version"]}',
             'junit'            : 'junit:junit:${version["junit-version"]}',
